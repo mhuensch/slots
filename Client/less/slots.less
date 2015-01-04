@@ -12,6 +12,11 @@
 	border: 1px solid black;
 }
 
+.slot-info{
+	width: 100px;
+	position: relative;
+	float: left;
+}
 
 .tile {
 	position: absolute;
@@ -25,29 +30,17 @@
 
 .tile.current {
 	top: 0;
-	-webkit-animation: slide-from-next 2s 1;
-	-moz-animation: slide-from-next 2s 1;
-	-ms-animation: slide-from-next 2s 1;
-}
-
-.tile.current.fast {
-	top: 0;
-	-webkit-animation: slide-from-next .25s 1;
-	-moz-animation: slide-from-next .25s 1;
-	-ms-animation: slide-from-next .25s 1;
+	-webkit-animation: slide-from-next linear 1;
+	-moz-animation: slide-from-next linear 1;
+	-ms-animation: slide-from-next linear 1;
 }
 
 .tile.next {
-	top: -100px;
-	-webkit-animation: slide-from-current 2s 1;
-	-moz-animation: slide-from-current 2s 1;
-	-ms-animation: slide-from-current 2s 1;
-}
-
-.tile.next.fast {
-	-webkit-animation: slide-from-current .25s 1;
-	-moz-animation: slide-from-current .25s 1;
-	-ms-animation: slide-from-current .25s 1;
+	/*TODO: figure out why this is 103 vs 100*/
+	top: -103px;
+	-webkit-animation: slide-from-current linear 1;
+	-moz-animation: slide-from-current linear 1;
+	-ms-animation: slide-from-current linear 1;
 }
 
 @-webkit-keyframes slide-from-current {
@@ -61,6 +54,11 @@
 }
 
 @-ms-keyframes slide-from-current {
+	0% { top: 0; }
+	100% { top: 100px; }
+}
+
+@keyframes slide-from-current {
 	0%   { top: 0; }
 	100% { top: 100px; }
 }
@@ -76,6 +74,11 @@
 }
 
 @-ms-keyframes slide-from-next {
+	0%   { top: -100px; }
+	100% { top: 0; }
+}
+
+@keyframes slide-from-next {
 	0%   { top: -100px; }
 	100% { top: 0; }
 }

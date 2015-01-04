@@ -1,0 +1,12 @@
+﻿<div class="slot">
+	{{#each tile in tiles}}
+	<div {{bind-attr class=":tile tile.isActive:current:next" style=speed }} >
+		<div {{bind-attr style=tile.backgroundStyle }}>{{tile.id}}</div>
+	</div>
+	{{/each}}
+	<div class="slot-info">
+		Rate:{{rate}}<br />
+		Target:{{stopOnIndex}}
+	</div>
+</div>
+
