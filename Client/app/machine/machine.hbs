@@ -1,10 +1,10 @@
 ﻿<div class="machine">
 	{{#each slot in slots}}
 
-	{{machine-slot tiles=slot.tiles spinning=spinning stopOnIndex=slot.stopOnIndex}}
+	{{machine-slot slot=slot stopOnIndex=slot.stopOnIndex}}
 
 	{{/each}}
 </div>
 
-<button {{action "start" }} {{bind-attr class="spinning:hidden" }}>Spin</button>
-<button {{action "stop" }} {{bind-attr class="spinning::hidden" }}>Stop</button>
+<button {{action "start" }} {{bind-attr class="canSpin::hidden" }}>Spin</button>
+<button {{action "stop" }} {{bind-attr class="isSpinning::hidden" }}>Stop</button>

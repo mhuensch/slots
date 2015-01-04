@@ -1,9 +1,10 @@
 ﻿App.MachineSlotComponent = Ember.Component.extend({
-	tiles: [],
-	currentIndex: 0,
-	spinning: false,
-	rate: 1,
+	//TODO: these things should be on the slot model
 	stopOnIndex: null,
+
+	slot: null,
+	currentIndex: 0,
+	rate: 1,
 	acceleration: 0,
 
 	speed: function () {
@@ -12,7 +13,7 @@
 	}.property('rate'),
 
 	start: function () {
-		if (!this.spinning) return;
+		if (!this.slot.isSpinning) return;
 
 		//Re-set the all the necessary variables back to their initial state
 		this.set('rate', 1);
@@ -23,19 +24,19 @@
 
 		//Start the slot spinning
 		this.spin();
-	}.observes('spinning'),
+	}.observes('slot.isSpinning'),
 
 	spin: function () {
 		var self = this;
 		var index = self.currentIndex;
-		var current = self.tiles[index];
+		var current = self.slot.tiles[index];
 
-		if (self.currentIndex === self.tiles.length - 1) {
+		if (self.currentIndex === self.slot.tiles.length - 1) {
 			index = 0;
 		} else {
 			index++;
 		}
-		var next = self.tiles[index];
+		var next = self.slot.tiles[index];
 
 		current.set('isActive', false);
 		next.set('isActive', true);
@@ -43,10 +44,10 @@
 
 		if (self.stopOnIndex !== null) {
 			var distance = self.stopOnIndex - self.currentIndex;
-			if (distance < 0) distance += self.tiles.length;
+			if (distance < 0) distance += self.slot.tiles.length;
 			//console.log('distance', distance);
 
-			if (distance !== 3 && self.rate === 10) {
+			if (distance !== 9 && self.rate === 10) {
 				self.keepSpinning();
 				return;
 			}
@@ -63,6 +64,10 @@
 
 		//TODO: for safety, remove check for rate === 1 - this is only here for dev purposes
 		if (self.stopOnIndex === self.currentIndex && self.rate === 1) {
+			Ember.run.later((function () {
+				self.set('rate', 0);
+				console.log('rate is 0');
+			}), (1 / self.rate) * 1000);
 			return;
 		}
 		self.keepSpinning();

@@ -1,5 +1,5 @@
 ﻿<div class="slot">
-	{{#each tile in tiles}}
+	{{#each tile in slot.tiles}}
 	<div {{bind-attr class=":tile tile.isActive:current:next" style=speed }} >
 		<div {{bind-attr style=tile.backgroundStyle }}>{{tile.id}}</div>
 	</div>

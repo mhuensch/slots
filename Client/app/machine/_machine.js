@@ -30,25 +30,43 @@ App.MachineRoute = App.Route.extend({
 });
 
 App.MachineController = App.ObjectController.extend({
-	spinning: false,
+	isSpinning: false,
 	result: null,
+
+	canSpin: function () {
+		console.log('can spin running');
+		var model = this.get('model');
+		for (var i = 0; i < model.slots.length; i++) {
+			if (model.slots[i].isSpinning) return false;
+		}
+		return true;
+	}.observes('model.slots.@each.isSpinning').property('isSpinning'),
+
+	spin: function () {
+		var model = this.get('model');
+		model.slots.map(function (slot) {
+			slot.set('isSpinning', true);
+		});
+	}.observes('isSpinning'),
+
+	bet: function() {
+		var self = this;
+		App.MachinesApi.placeBet().then(function (data) {
+			console.log('stopping on', data.slots.map(function (slot) {
+				return slot.tile + 1;
+			}).toString());
+			self.set('result', data);
+		});
+	}.observes('isSpinning'),
 
 	actions: {
 
 		start: function () {
-			this.set('spinning', true);
-
-			var self = this;
-			App.MachinesApi.placeBet().then(function (data) {
-				console.log('stopping on', data.slots.map(function (slot) {
-					return slot.tile + 1;
-				}).toString());
-				self.set('result', data);
-			});
+			this.set('isSpinning', true);
 		},
 
 		stop: function () {
-			this.set('spinning', false);
+			this.set('isSpinning', false);
 			var result = this.get('result').slots;
 			var slots = this.get('model').slots;
 
@@ -63,7 +81,9 @@ App.MachineController = App.ObjectController.extend({
 
 App.Slot = Ember.Object.extend({
 	id: null,
+	isSpinning: false,
 	stopOnIndex: null,
+	rate: 0,
 	tiles: []
 });
 
