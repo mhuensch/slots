@@ -1,0 +1,27 @@
+﻿<div class="machine">
+	<div class="slot">
+		<div {{bind-attr class=":tile isYangCurrent:next:current :fast" style="url" }}>{{yin}}</div>
+		<div {{bind-attr class=":tile isYangCurrent:current:next :fast" style="url" }}>{{yang}}</div>
+	</div>
+	<div class="slot">
+		<div {{bind-attr class=":tile isYangCurrent:next:current :fast" style="url" }}>{{yin}}</div>
+		<div {{bind-attr class=":tile isYangCurrent:current:next :fast" style="url" }}>{{yang}}</div>
+	</div>
+	<div class="slot">
+		<div {{bind-attr class=":tile isYangCurrent:next:current :fast" style="url" }}>{{yin}}</div>
+		<div {{bind-attr class=":tile isYangCurrent:current:next :fast" style="url" }}>{{yang}}</div>
+	</div>
+</div>
+<button {{action "start" }} {{bind-attr class="spinning:hidden" }}>Spin</button>
+<button {{action "stop" }} {{bind-attr class="spinning::hidden" }}>Stop</button>
+
+
+<div>
+	<h2>Slot Machine Data</h2>
+	{{#each slot in model.slots}}
+	<div>{{slot.id}}</div>
+	{{#each tile in slot.tiles}}
+	<div>{{tile.url}}</div>
+	{{/each}}
+	{{/each}}
+</div>

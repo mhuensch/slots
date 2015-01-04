@@ -1,0 +1,12 @@
+﻿<form class="form-login" role="form" {{action "login" on="submit"}}>
+	<h2 class="form-login-heading">Login</h2>
+
+	{{input value=user type="text" placeholder="Username" autofocus="true" required="true"}}
+	{{input value=password type="password" placeholder="Password" required="true"}}
+	{{input class="btn btn-lg btn-info btn-block" type="submit" value="Login"}}
+
+</form>
+
+{{#if errorMessage}}
+	<div class="alert alert-error">{{errorMessage}}</div>
+{{/if}}

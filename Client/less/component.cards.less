@@ -1,0 +1,83 @@
+//
+// Layout cards
+// --------------------------------------------------
+
+
+// Global card properties
+// -------------------------
+@card-box-shadow-color: rgba(0, 0, 0, 0.4);
+@card-box-shadow-props: 0px 0px 3px 0px;
+@card-padding-sides: 0.6rem;
+@card-border-radius: 5px;
+
+
+// Basic cards
+// -------------------------
+.card {
+
+	// Layout
+	display: block;
+	margin: 0 auto 0.75rem auto;
+	width: 100%;
+	padding: 0.4rem @card-padding-sides;
+
+	// Color & shape
+	border: none;
+	background-color: @color-white;
+	border-radius: @card-border-radius;
+
+	// Typography
+	font-size: @font-size-base;
+	font-weight: @font-weight-normal;
+	color: @color-black;
+	text-decoration: none;
+
+	// Effects
+	.box-shadow(@card-box-shadow-props @card-box-shadow-color);
+	.transition(background-color 0.4s, box-shadow 0.4s;);
+}
+
+// Some cards have a title element which is emphasized
+.card-title {
+	font-weight: @font-weight-semibold;
+}
+
+// Some cards have an even beastlier title, like a page h1
+// But if it's inside the card, it shouldn't have the h1 margins
+// So use this class instead
+.card-page-title {
+	font-size: @font-size-x-lg;
+	font-weight: @font-weight-semibold;
+	color: @color-primary;
+	margin: 0.1rem 0 0 0;
+}
+
+// Card labels have the same type style as input card labels,
+// but they are positioned in normal flow instead of absolutely.
+// Use the classes if you want the styles w/o label pointer behavior.
+.card label,
+.card-label,
+.card-subtitle {
+	display: block;
+	color: @color-gray-light;
+	font-size: @font-size-x-small;
+	font-weight: @font-weight-normal;
+	margin: 0 auto 0.2rem auto;
+}
+
+// Card subtitle is like card label, except with margin on the bottom.
+// Use this when you want the small text on the bottom of the card.
+.card-subtitle {
+	margin: 0.1rem auto 0 auto;
+}
+
+// Card buttons are cards which, when clicked, cause an action to occur.
+// Most frequently it's showing an overlay panel for editing.
+.card.button {
+	cursor: pointer;
+}
+
+.card.button:hover,
+.card.button:active {
+	background-color: @color-primary-x-light;
+}

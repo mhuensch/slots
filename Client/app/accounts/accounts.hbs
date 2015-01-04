@@ -1,0 +1,10 @@
+﻿<h1>Accounts</h1>
+<ul>
+	{{#each account in model}}
+	<li>
+		{{#link-to "account" account}}
+		{{account.email}}
+		{{/link-to}}
+	</li>
+	{{/each}}
+</ul>

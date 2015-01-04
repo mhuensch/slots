@@ -1,0 +1,58 @@
+# http://www.appveyor.com/docs/appveyor-yml
+
+version: 1.0.{build}
+
+init:
+  - git config --global core.autocrlf input
+  - if not exist C:\npm-cache md C:\npm-cache
+  - npm config set cache C:\npm-cache
+
+install:
+  - ps: Install-Product node 0.10.30 x86
+  - npm install Brochure --prefix Brochure
+  - npm install Client --prefix Client
+
+assembly_info:
+  patch: true
+  file: AssemblyInfo.*
+  assembly_file_version: "{version}"
+  assembly_informational_version: "{version}"
+
+configuration: Release
+
+before_build:
+  - cd Client
+  - npm run build-for-web
+  - cd ..
+  - cd Brochure
+  - npm run build-for-web
+  - cd ..
+
+build:
+  project: foogenda.sln
+  publish_wap: true
+  verbosity: minimal
+
+test_script:
+  - node --version
+  - npm --version
+  - npm config get cache
+
+cache:
+  - packages
+  - C:\npm-cache
+# Disabling for build cache issue - see http://help.appveyor.com/discussions/problems/851-path-or-file-name-too-long-in-web-deploy
+#  - C:\projects\foogenda\Client\node_modules
+#  - C:\projects\foogenda\Client\bower_components
+#  - C:\projects\foogenda\Brochure\node_modules
+#  - C:\projects\foogenda\Brochure\bower_components
+
+deploy:
+  provider: WebDeploy
+  website: foogenda
+  server: https://foogenda.scm.azurewebsites.net:443/msdeploy.axd?site=foogenda
+  username: $foogenda
+  password:
+    secure: MLVflmw7b1ZmB6Fzuh6WZaPVRcvZEzOkg2b5D+XPM6MyMvAaChsaWIhn8lA56R54jCpCRoTgDCia2MW6gNj0iA==
+  ntlm: false
+  remove_files: true

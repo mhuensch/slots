@@ -1,0 +1,12 @@
+{
+	"name": "foogenda",
+	"version": "0.0.0",
+	"description": "event planning",
+	"homepage": "https://github.com/BillowLabsAdmin/foogenda",
+	"authors": [
+		"Billow Labs <support@billowlabs.com>"
+	],
+	"dependencies": {
+		"ember": "1.9.1"
+	}
+}

@@ -1,0 +1,11 @@
+﻿<h1>Errors</h1>
+<ul>
+	{{#each error in model}}
+
+	<!--TODO: figure out why link to doesnt work in this instance-->
+
+	<li>
+		<a {{bind-attr href="error.location" }}>{{error.key}}</a>
+	</li>
+	{{/each}}
+</ul>

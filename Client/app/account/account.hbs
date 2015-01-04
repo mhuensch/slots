@@ -1,0 +1,24 @@
+﻿<div class="account-page-header">
+
+	<img {{bind-attr src=image}} />
+
+	<div class="card">
+		<div class="card-page-title">{{name}}</div>
+		<div class="card-subtitle">
+			<!--TODO: re-add commat with semi-collon once we fix the template concat-->
+			<!--<span class="username-at-sign">&commat</span>-->{{key}}
+		</div>
+	</div>
+</div>
+
+<div class="card">
+	<label>Email Address</label>
+	<div>{{email}}</div>
+</div>
+
+<div class="card" ng-show="role != 'User'">
+	<label>Role</label>
+	<div>{{role}}</div>
+</div>
+
+<input type="button" {{action 'logout' }} ng-click="logout()" value="Log out" class="btn btn-default" />

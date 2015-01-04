@@ -1,0 +1,38 @@
+﻿.autocomplete{
+	width: 100%;
+	position: relative;
+}
+
+.autocomplete ul{
+	position: absolute;
+	top:-15px;
+	left: 0;
+	padding-left:0;
+	margin-left:0;
+	width: 100%;
+	border-left: 2px solid @color-gray-light;
+	border-right: 2px solid @color-gray-light;
+	border-bottom: 2px solid @color-gray-light;
+	z-index: 9999;
+}
+
+.autocomplete li{
+	text-align: left;
+	list-style:none;
+	padding-left:0;
+	width: 100%;
+	background-color: #fff;
+	padding: 3px 0;
+}
+
+.autocomplete li.active{
+	width: 100%;
+	background-color: @color-primary-x-light;
+}
+
+.suggestion.title {
+	font-weight: bold;
+}
+.suggestion.subtitle {
+	color: @color-gray-light;
+}

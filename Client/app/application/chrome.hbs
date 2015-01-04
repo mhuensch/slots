@@ -1,0 +1,34 @@
+﻿<header>
+	<nav class="navbar" role="navigation">
+
+		<div class="navbar-center-section">
+
+			<!-- Home link -->
+
+			<!-- Dynamic page title -->
+			<span class="navbar-page-title">{{title}}</span>
+
+			<!-- User info link -->
+			{{#if  isAuthenticated}}
+			{{#link-to "account" username class="btn btn-default navbar-right"}}
+			<i class="fa fa-user"></i> <span class="navbar-btn-text">{{username}}</span>
+			{{/link-to}}
+			{{/if }}
+
+		</div>
+	</nav>
+</header>
+
+<!-- Body content wrapper -->
+<main class="container">
+
+
+	{{#if isAuthenticated}}
+	{{session.userLn}}
+	{{else}}
+	Not Authed
+	{{/if}}
+
+	{{outlet}}
+	{{outlet "overlay"}}
+</main>

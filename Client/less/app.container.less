@@ -1,0 +1,60 @@
+//
+// App container & app-specific resets
+// --------------------------------------------------
+
+
+// Border-box every damn thing
+html {
+	box-sizing: border-box;
+}
+
+// But do it w/inheritance so we can easily use
+// content-box components if needed
+*, *:before, *:after {
+	box-sizing: inherit;
+}
+
+// Set heights so .container can inherit them
+html, body, .appctrl {
+	height: 100%;
+	position: relative;
+}
+
+// Remove auto margin on lists
+ul {
+	margin: 0;
+}
+
+.container {
+	width: 100%;
+	padding: 1rem 2.5% 0 2.5%;
+
+	// Adjust for header; otherwise scrollbar appears
+	position: absolute;
+	bottom: 0;
+	top: @nav-bar-height;
+
+	// Fallback to light gray if the image doesn't work
+	background: @color-gray-xx-light;
+
+	// Add background image with naive retina approach
+	// TODO: Optimize images for any DPI; SVG or something?
+	background: url('images/bg-triangles.png');
+	background-size: 188px 178px;
+}
+
+.hidden {
+	display: none;
+}
+
+@media screen and (min-width: @breakpoint-medium) {
+	.appctrl {
+		width: 35em;
+		margin: 0 auto;
+	}
+
+	.container {
+		border-left: 1px solid @color-gray-x-light;
+		border-right: 1px solid @color-gray-x-light;
+	}
+}

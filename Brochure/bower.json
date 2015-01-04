@@ -1,0 +1,26 @@
+{
+  "name": "foogenda",
+  "version": "0.0.0",
+  "description": "event planning",
+  "homepage": "https://github.com/BillowLabsAdmin/foogenda",
+  "authors": [
+    "Billow Labs <support@billowlabs.com>"
+  ],
+  "dependencies": {
+    "jquery": "2.1.1",
+    "lodash": "2.4.1",
+    "underscore": "1.7.0",
+    "moment": "2.8.1",
+    "angular": "1.2.22",
+    "angular-cookies": "1.2.22",
+    "angular-resource": "1.2.22",
+    "angular-route": "1.2.22",
+    "angular-classy": "0.4.2",
+    "angular-ui-bootstrap-bower": "0.11.0",
+    "angular-google-maps": "1.2.0",
+    "ngAutocomplete": "1.0.0",
+    "auth0.js": "4.0.1",
+    "auth0-angular": "2.2.2",
+    "auth0-widget.js": "5.2.7"
+  }
+}

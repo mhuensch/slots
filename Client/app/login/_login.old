@@ -1,0 +1,148 @@
+﻿angular.module('login', ['classy', 'ngRoute'])
+	.config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpProvider) {
+		$routeProvider
+			.when('/login', { templateUrl: '/modules/login/login.html' })
+			.when('/login/:queryString', { templateUrl: '/modules/login/logincomplete.html' });
+	}])
+	.classy.controller({
+		name: 'LoginCtrl',
+		inject: ['$scope', '$location', '$timeout', '$routeParams', 'authService'],
+		init: function () {
+			$scope = this.$scope;
+			$location = this.$location;
+			$timeout = this.$timeout;
+			$routeParams = this.$routeParams;
+			authService = this.authService;
+			$scope.auth = authService;
+
+			if ($routeParams.queryString) {
+				$scope.doSomething();
+			}
+
+			$scope.savedSuccessfully = false;
+			$scope.message = "";
+
+			$scope.registration = {
+				userName: "",
+				password: "",
+				confirmPassword: ""
+			};
+
+			$scope.loginData = {
+				userName: "",
+				password: ""
+			};
+
+			$scope.message = "";
+			$scope.setTitle('Log In');
+		},
+		login: function () {
+			authService.login($scope.loginData)
+				.then(function (response) {
+					var redirect = $location.$$search.redirect || '/events';
+					$location.path(redirect).search({});
+				}, function (err) {
+					$scope.message = err.error_description;
+				});
+		},
+		signUp: function () {
+
+			authService.saveRegistration($scope.registration).then(function (response) {
+
+				$scope.savedSuccessfully = true;
+				$scope.message = "User has been registered successfully, you will be redirected to login page in 2 seconds.";
+				$scope.startTimer();
+
+			},
+			 function (response) {
+			 	var errors = [];
+			 	for (var key in response.data.modelState) {
+			 		for (var i = 0; i < response.data.modelState[key].length; i++) {
+			 			errors.push(response.data.modelState[key][i]);
+			 		}
+			 	}
+			 	$scope.message = "Failed to register user due to:" + errors.join(' ');
+			 });
+		},
+		authExternalProvider: function (provider) {
+			var redirectUri = location.protocol + '//' + location.host + '/app/#/logincomplete';
+			var clientId = '307202534612-9u9eid0d2jbhaakg5or1c9br9np9mcbg.apps.googleusercontent.com';
+			var externalProviderUrl = location.protocol + '//' + location.host
+				+ "/api/externalauth/externalogin?provider=" + provider
+				+ "&response_type=token&client_id=" + clientId
+				+ "&redirect_uri=" + redirectUri;
+
+			window.location.assign(externalProviderUrl);
+		},
+		doSomething: function () {
+
+			console.log('doing something')
+			window.common = (function () {
+				var common = {};
+
+				common.getFragment = function getFragment() {
+					if (window.location.hash.indexOf("#/login/") === 0) {
+						return parseQueryString(window.location.hash.substr(8));
+					} else {
+						return {};
+					}
+				};
+
+				function parseQueryString(queryString) {
+					var data = {},
+							pairs, pair, separatorIndex, escapedKey, escapedValue, key, value;
+
+					if (queryString === null) {
+						return data;
+					}
+
+					pairs = queryString.split("&");
+
+					for (var i = 0; i < pairs.length; i++) {
+						pair = pairs[i];
+						separatorIndex = pair.indexOf("=");
+
+						if (separatorIndex === -1) {
+							escapedKey = pair;
+							escapedValue = null;
+						} else {
+							escapedKey = pair.substr(0, separatorIndex);
+							escapedValue = pair.substr(separatorIndex + 1);
+						}
+
+						key = decodeURIComponent(escapedKey);
+						value = decodeURIComponent(escapedValue);
+
+						data[key] = value;
+					}
+
+					return data;
+				}
+
+				return common;
+			})();
+			var fragment = common.getFragment();
+			$scope.authCompletedCB(fragment);
+		},
+		authCompletedCB: function (fragment) {
+			//Obtain access token and redirect to orders
+			var externalData = { provider: fragment.provider, externalAccessToken: fragment.external_access_token };
+			authService.obtainAccessToken(externalData)
+				.then(function (response) {
+					console.log('obtainAccessToken', response);
+					$location.path('/events');
+				}, function (err) {
+					$scope.message = err.error_description;
+					console.log('obtainAccessToken', err);
+					$location.path('/login');
+				});
+		},
+		startTimer: function () {
+			var timer = $timeout(function () {
+				$timeout.cancel(timer);
+				$location.path('/login');
+			}, 2000);
+		}
+	});
+
+app.requires.push('login');

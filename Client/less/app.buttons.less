@@ -1,0 +1,115 @@
+//
+// Buttons
+// --------------------------------------------------
+
+
+// Base styles
+// -------------------------
+@button-font-size: @font-size-small;
+@button-border-radius: 4px;
+
+.btn {
+	display: inline-block;
+	font-weight: @font-weight-normal;
+	font-size: @button-font-size;
+	border-radius: @button-border-radius;
+	text-align: center;
+	cursor: pointer;
+	white-space: nowrap;
+	text-decoration: none;
+	padding: 0 0.75rem;
+	line-height: 2.2;
+	.transition(background-color 0.4s, border 0.4s;);
+}
+
+
+// Button types
+// -------------------------
+.btn-default {
+	color: @color-primary;
+	border: 1px solid @color-primary-light;
+	background-color: @color-primary-x-light;
+}
+
+.btn-default:hover,
+.btn-default:active {
+	color: @color-primary-dark;
+	background-color: @color-primary-light;
+}
+
+.btn-primary {
+	color: @color-white;
+	border: 1px solid @color-primary;
+	background-color: @color-primary;
+	margin: 1rem 0 2rem 0;
+}
+
+.btn-primary:hover,
+.btn-primary:active {
+	background-color: @color-primary-dark;
+}
+
+.btn-disabled {
+	cursor: not-allowed;
+	pointer-events: none;
+}
+
+.btn-primary.btn-disabled,
+.btn-primary.btn-disabled:hover {
+	border-color: @color-gray-light;
+	background-color: @color-gray-light;
+	color: @color-gray-x-light;
+}
+
+
+// Buttons with icons
+// -------------------------
+.btn i + span {
+	margin-left: 0.25rem;
+}
+
+
+// xeditable buttons
+// TODO: This is fucking horrible
+// -------------------------
+span.editable-buttons button {
+	display: inline-block;
+	font-weight: @font-weight-normal;
+	font-size: @button-font-size;
+	border-radius: @button-border-radius;
+	text-align: center;
+	cursor: pointer;
+	white-space: nowrap;
+	text-decoration: none;
+	padding: 0 0.75rem;
+	line-height: 2.2;
+	.transition(background-color 0.4s, border 0.4s;);
+}
+
+span.editable-buttons button[type="submit"] {
+	color: @color-white;
+	border: 1px solid @color-primary;
+	background-color: @color-primary;
+	margin-right: 0.25rem;
+}
+
+span.editable-buttons button[type="button"] {
+	color: @color-primary;
+	border: 1px solid @color-primary-light;
+	background-color: @color-primary-x-light;
+}
+
+
+// Button sizes
+// -------------------------
+.btn-lg {
+	// line-height: ensure even-numbered height of button next to large input
+}
+
+.btn-sm {
+	// line-height: ensure proper height of button next to small input
+}
+
+.btn-fullwidth {
+	width: 100%;
+}

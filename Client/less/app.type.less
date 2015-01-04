@@ -1,0 +1,121 @@
+//
+// Typography
+// --------------------------------------------------
+
+
+// Font stack variables
+// -------------------------
+@font-family-sans-serif: "Fira Sans", Helvetica, Arial, sans-serif;
+@font-family-serif: Georgia, "Times New Roman", Times, serif;
+@font-family-monospace: Menlo, Monaco, Consolas, "Courier New", monospace;
+
+
+// Font weight constants
+// -------------------------
+@font-weight-light: 300;
+@font-weight-normal: 400;
+@font-weight-semibold: 500;
+@font-weight-bold: 700;
+
+
+// Font size constants
+// -------------------------
+@font-size-x-small: 0.8em;
+@font-size-small: 0.875em;
+@font-size-base: 1em;
+@font-size-lg: 1.125em;
+@font-size-x-lg: 1.25em;
+
+
+// Line height constants
+// -------------------------
+@line-height-base: 1.375;
+
+
+// Default type
+// -------------------------
+body {
+	font-family: @font-family-sans-serif;
+	font-weight: @font-weight-normal;
+	font-size: @font-size-base;
+	line-height: @line-height-base;
+	color: @color-black;
+}
+
+
+// Headers
+// -------------------------
+h1, .h1 {
+	font-size: @font-size-x-lg;
+	font-weight: @font-weight-semibold;
+	color: @color-primary;
+}
+
+h2, .h2 {
+	font-size: @font-size-lg;
+	font-weight: @font-weight-semibold;
+	color: @color-black;
+}
+
+
+// Hint text
+// -------------------------
+.hint-text {
+	color: @color-gray-dark;
+	font-size: @font-size-small;
+}
+
+.hint-text p {
+	display: inline-block;
+	margin: -0.1rem 0 0 0.2rem;
+	font-style: italic;
+	width: 15em;
+}
+
+.hint-text i {
+	vertical-align: top;
+}
+
+
+// Catch-all
+// -------------------------
+
+// Show the "@" sign in a light purple
+.username-at-sign {
+	color: @color-primary-light;
+}
+
+
+// Utility classes
+// -------------------------
+.u-text-left {
+	text-align: left;
+}
+
+.u-text-right {
+	text-align: right;
+}
+
+.u-text-center {
+	text-align: center;
+}
+
+.u-text-justify {
+	text-align: justify;
+}
+
+.u-text-nowrap {
+	white-space: nowrap;
+}
+
+.u-text-lowercase {
+	text-transform: lowercase;
+}
+
+.u-text-uppercase {
+	text-transform: uppercase;
+}
+
+.u-text-capitalize {
+	text-transform: capitalize;
+}

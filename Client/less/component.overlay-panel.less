@@ -1,0 +1,99 @@
+//
+// Overlay panels
+// --------------------------------------------------
+
+.overlay-panel {
+	position: fixed;
+	top: 0;
+	right: 0;
+	height: 100%;
+	width: 80%;
+	padding: 0 2.5% 0 2.5%;
+	background-color: @color-white;
+	z-index: @z-index-overlay-panel;
+
+	// We'll toggle it by adding the .overlay-panel-visible class
+	opacity: 0;
+
+	// Position offscreen equal to width
+	// For some reason, 80% doesn't work, but 100% does
+	.translate(100%; 0);
+
+	// Slide out fairly quickly; will override in .overlay-panel-visible to show more slowly
+	.transition(all 0.2s ease);
+
+	// Let the browser pre-optimize animations
+	will-change: transform, opacity;
+}
+
+@media screen and (min-width: @breakpoint-medium) {
+	.overlay-panel {
+		width: 30rem;
+
+		// Position offscreen equal to width
+		.translate(30rem; 0);
+	}
+}
+
+.overlay-panel-visible {
+	// Show and position in "normal" spot
+	.translate(0; 0);
+	opacity: 1;
+
+	// Enter a bit slower than we leave
+	.transition(all 0.3s ease);
+}
+
+.overlay-panel-title-bar {
+	position: absolute;
+	left: 0;
+	right: 0;
+	background-color: @color-gray-x-dark;
+	color: @color-white;
+	padding: 0 2.5%;
+
+	// Height should be same as the base nav bar
+	height: @nav-bar-height;
+}
+
+.overlay-panel-title-text {
+	font-size: @font-size-lg;
+	font-weight: @font-weight-semibold;
+
+	// Vertically center it
+	line-height: @nav-bar-height;
+}
+
+.overlay-panel-contents-wrapper {
+	padding-top: @nav-bar-height + 1rem;
+}
+
+.overlay-bg {
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	background-color: @color-overlay-bg;
+	z-index: @z-index-overlay-bg;
+
+	// Fade out fairly quickly; will override in .overlay-bg-visible to show more slowly
+	.transition(opacity 0.1s ease);
+
+	// Ignore pointer events since it is always sitting there
+	pointer-events: none;
+
+	// We'll toggle it by adding the .overlay-bg-visible class
+	opacity: 0;
+
+	// Let the browser pre-optimize animations
+	will-change: opacity;
+}
+
+.overlay-bg-visible {
+	opacity: 1;
+	pointer-events: auto;
+
+	// Enter a bit slower than we leave
+	.transition(opacity 0.9s ease);
+}

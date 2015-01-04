@@ -1,0 +1,96 @@
+﻿// Example: http://bitoftech.net/2014/06/09/angularjs-token-authentication-using-asp-net-web-api-2-owin-asp-net-identity/
+// Authorization service responsible for registration, login, logout, etc. 
+
+app.constant('authSettings', {
+	clientId: '534f981d-7666-4b26-aad7-3a3a9e1adf4d',
+	storageName: 'authorizationData'
+});
+
+app.factory('authService', ['$http', '$q', 'localStorageService', 'authSettings', function ($http, $q, localStorageService, authSettings) {
+	
+	var _authentication = {
+		isAuth: false,
+		userName: ""
+	};
+
+	var authServiceFactory = {
+		authentication: _authentication,
+		saveRegistration: function (registration) {
+			return $http.post('/api/register', registration).then(function (response) {
+					return response;
+			});
+		},
+		logOut: function () {
+
+			localStorageService.remove(authSettings.storageName);
+
+			_authentication.isAuth = false;
+			_authentication.userName = "";
+
+		},
+		login: function (loginData) {
+
+			localStorageService.remove(authSettings.storageName);
+
+			var data = "grant_type=password&username=" + loginData.userName + "&password=" + loginData.password + "&client_id=" + authSettings.clientId;
+
+			var deferred = $q.defer();
+
+			$http.post('/token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).success(function (response) {
+
+
+				localStorageService.set(authSettings.storageName, { token: response.access_token, userName: loginData.userName });
+
+
+				_authentication.isAuth = true;
+				_authentication.userName = loginData.userName;
+
+				deferred.resolve(response);
+
+			}).error(function (err, status) {
+				authServiceFactory.logOut();
+				deferred.reject(err);
+			});
+
+			return deferred.promise;
+
+		},
+		fillAuthData: function () {
+
+			var authData = localStorageService.get(authSettings.storageName);
+			if (authData) {
+				_authentication.isAuth = true;
+				_authentication.userName = authData.userName;
+			}
+
+		},
+		obtainAccessToken: function (externalData) {
+
+			var deferred = $q.defer();
+
+			$http.get('/api/externalauth/obtainlocalaccesstoken', { params: { provider: externalData.provider, externalAccessToken: externalData.externalAccessToken } }).success(function (response) {
+
+				localStorageService.set(authSettings.storageName, { token: response.access_token, userName: response.userName });
+
+				_authentication.isAuth = true;
+				_authentication.userName = response.userName;
+
+				deferred.resolve(response);
+
+			}).error(function (err, status) {
+				authServiceFactory.logOut();
+				deferred.reject(err);
+			});
+
+			return deferred.promise;
+
+		}
+	};
+
+	return authServiceFactory;
+
+}]);
+
+app.run(['authService', function (authService) {
+	authService.fillAuthData();
+}]);
