@@ -30,17 +30,21 @@ App.MachineRoute = App.Route.extend({
 });
 
 App.MachineController = App.ObjectController.extend({
+	isStopped: false,
 	isSpinning: false,
 	result: null,
 
-	canSpin: function () {
-		console.log('can spin running');
-		var model = this.get('model');
-		for (var i = 0; i < model.slots.length; i++) {
-			if (model.slots[i].isSpinning) return false;
-		}
-		return true;
-	}.observes('model.slots.@each.isSpinning').property('isSpinning'),
+	setIsSpinning: function () {
+		this.set("isSpinning", this.get('model').slots.every(function (slot) {
+			return slot.rate === 10;
+		}));
+	}.observes('model.slots.@each.rate'),
+
+	setIsStopped: function () {
+		this.set("isStopped", this.get('model').slots.every(function (slot) {
+			return slot.rate === 0;
+		}));
+	}.observes('model.slots.@each.rate'),
 
 	spin: function () {
 		var model = this.get('model');
