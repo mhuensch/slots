@@ -108,6 +108,8 @@
 			this.increment = 0;
 			this.startPositon = 0;
 
+			$list.append($($list.find('li')[0]).clone());
+
 			this.$list = $list;
 			this.$items = $list.find('li');
 			this.itemCount = this.$items.length;
@@ -149,6 +151,7 @@
 				that.$list
 					.css('top', -that.listHeight)
 					.animate({ 'top': that.startPositon }, finalSpeed, self.options.easing, function () {
+						that.$items[that.$items.length - 1].remove();
 						self.slotStopped();
 					});
 			}

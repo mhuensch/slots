@@ -51,7 +51,7 @@
 App.SlotsApi.placeBet = function () {
 	return new Promise(function (resolve, reject) {
 		var result = {
-			symbols: [Math.floor(Math.random() * 7), Math.floor(Math.random() * 7), Math.floor(Math.random() * 7)]
+			symbols: [Math.floor(Math.random() * 9) + 1, Math.floor(Math.random() * 9) + 1, Math.floor(Math.random() * 9) + 1]
 		};
 
 		// on success
