@@ -119,12 +119,10 @@
 
 			this.spin = function () {
 				var that = this;
-
-				that.$list
-					.css('top', -that.listHeight)
-					.animate({ 'top': that.startPositon }, that.spinSpeed, 'linear', function () {
-						that.accelerate();
-					});
+				that.$list.animate({ 'top': 0 }, that.spinSpeed, 'linear', function () {
+					that.$list.css('top', -that.listHeight);
+					that.accelerate();
+				});
 			},
 
 
@@ -145,12 +143,12 @@
 			this.finish = function (result) {
 				var that = this;
 
-				that.startPositon = -((that.lineHeight * result) - that.lineHeight);
+				var finalPosition = -((that.lineHeight * result) - that.lineHeight);
 				var finalSpeed = ((this.spinSpeed * 0.5) * (that.itemCount)) / result;
 
 				that.$list
 					.css('top', -that.listHeight)
-					.animate({ 'top': that.startPositon }, finalSpeed, self.options.easing, function () {
+					.animate({ 'top': finalPosition }, finalSpeed, self.options.easing, function () {
 						that.$items[that.$items.length - 1].remove();
 						self.slotStopped();
 					});
