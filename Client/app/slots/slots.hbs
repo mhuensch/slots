@@ -1,0 +1,5 @@
+﻿<ul>
+	{{#each slot in model}}
+	<li>{{#link-to "slot" slot}} {{slot.title}} {{/link-to}}</li>
+	{{/each}}
+</ul>

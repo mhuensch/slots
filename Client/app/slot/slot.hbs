@@ -1,0 +1,41 @@
+﻿<div class="machine">
+	{{#each window in slotWindows}}
+	<div class ="slot">
+		{{#each tile in window.tiles}}
+		<div {{bind-attr class=":tile tile.isActive:current:next" style=speed }}>
+			<div {{bind-attr style=tile.backgroundStyle }}>{{tile.id}}</div>
+		</div>
+		{{/each}}
+	</div>
+	{{/each}}
+</div>
+
+
+
+
+<button {{action "spin" }} {{bind-attr class="canSpin::hidden" }}>Spin</button>
+<button {{action "stop" }} {{bind-attr class="canStop::hidden" }}>Stop</button>
+
+
+
+<div id="machine" class="machine">
+	<div id="machine-window" class="machine-window">
+		{{#each reel in model.reels}}
+		<ul class="slot">
+			{{#each symbol in reel.symbols}}
+			<li>
+				<img {{bind-attr src=symbol.url}} alt="Symbol">
+				<span>{{symbol.id}}</span>
+			</li>
+			{{/each}}
+		</ul>
+		{{/each}}
+	</div>
+	<br />
+</div>
+<input type="button" value="Spin" id="lever" {{action "spin"}} />
+<ul id="result">
+	{{#each symbol in result.symbols}}
+		<li>{{symbol}}</li>
+	{{/each}}
+</ul>

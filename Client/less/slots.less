@@ -1,86 +1,40 @@
 ﻿.machine {
-	width: 300px;
+}
+
+.machine-window {
+	overflow: hidden;
 	height: 100px;
+	display: inline-block; /* to size correctly, can use float too, or width*/
+	border: 1px solid #999;
 }
 
 .slot {
-	height: 100px;
-	width: 100px;
-	position: relative;
-	overflow: hidden;
 	float: left;
-	border: 1px solid black;
+	padding: 0;
+	margin: 0;
+	list-style: none;
+	position: relative;
 }
 
-.slot-info{
+.slot li {
 	width: 100px;
 	height: 100px;
-	position: relative;
-	float: left;
-	background: rgba(255, 255, 255, .25);
+	position:relative;
 }
 
-.tile {
+.slot li img {
+	position: relative; 
+	width: 100%; /* for IE 6 */
+}
+
+.slot li span {
 	position: absolute;
-	color: black;
-	font-size: 75px;
-	text-align: center;
-	vertical-align: middle;
-	width: 100px;
-	height: 100px;
+	left: 0;
+	top:0;
 }
 
-.tile.current {
+.slot-info {
+	position: relative;
 	top: 0;
-	-webkit-animation: slide-from-next linear 1;
-	-moz-animation: slide-from-next linear 1;
-	-ms-animation: slide-from-next linear 1;
-}
-
-.tile.next {
-	/*TODO: figure out why this is 103 vs 100*/
-	top: -103px;
-	-webkit-animation: slide-from-current linear 1;
-	-moz-animation: slide-from-current linear 1;
-	-ms-animation: slide-from-current linear 1;
-}
-
-@-webkit-keyframes slide-from-current {
-	0%   { top: 0; }
-	100% { top: 100px; }
-}
-
-@-moz-keyframes slide-from-current {
-	0%   { top: 0; }
-	100% { top: 100px; }
-}
-
-@-ms-keyframes slide-from-current {
-	0% { top: 0; }
-	100% { top: 100px; }
-}
-
-@keyframes slide-from-current {
-	0%   { top: 0; }
-	100% { top: 100px; }
-}
-
-@-webkit-keyframes slide-from-next {
-	0%   { top: -100px; }
-	100% { top: 0; }
-}
-
-@-moz-keyframes slide-from-next {
-	0%   { top: -100px; }
-	100% { top: 0; }
-}
-
-@-ms-keyframes slide-from-next {
-	0%   { top: -100px; }
-	100% { top: 0; }
-}
-
-@keyframes slide-from-next {
-	0%   { top: -100px; }
-	100% { top: 0; }
+	left: 0;
 }
